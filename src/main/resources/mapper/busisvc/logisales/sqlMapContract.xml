@@ -124,6 +124,10 @@
 
 	</select>
 
+	<select id="allCustomer" resultType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
+		SELECT * FROM CUSTOMER
+	</select>
+
 	<select id="selectContractCount" resultType="int">
 		SELECT CONTRACT_SEQ.NEXTVAL FROM DUAL
 	</select>

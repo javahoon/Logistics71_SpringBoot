@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
@@ -55,7 +56,7 @@ public class SalesServiceImpl implements SalesService {
 		map.put("endDate", endDate);
 
 		salesPlanTOList = salesPlanMapper.selectSalesPlanList(map);
-		
+
 		return salesPlanTOList;
 	}
 

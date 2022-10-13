@@ -217,10 +217,6 @@
 		<result property="customerCode" column="CUSTOMER_CODE"  />
 		<result property="customerFaxNumber" column="CUSTOMER_FAX_NUMBER"  />
 	</resultMap>
-     	
-	<select id="selectCustomerListByCompany" resultMap="customerResult">
-		SELECT * FROM CUSTOMER
-	</select>
 		
 	<select id="selectCustomerListByWorkplace" parameterType="String" resultMap="customerResult">
 		SELECT * FROM CUSTOMER WHERE WORKPLACE_CODE = #{workplaceCode}
@@ -246,7 +242,7 @@
 	</select>
 		
 	<insert id="insertCustomer" parameterType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
-		Insert into CUSTOMER \r\n"
+		Insert into CUSTOMER
 		( CUSTOMER_CODE , WORKPLACE_CODE , CUSTOMER_NAME , CUSTOMER_TYPE , CUSTOMER_CEO ,
 		BUSINESS_LICENSE_NUMBER , SOCIAL_SECURITY_NUMBER , CUSTOMER_BUSINESS_CONDITIONS ,
 		CUSTOMER_BUSINESS_ITEMS , CUSTOMER_ZIP_CODE , CUSTOMER_BASIC_ADDRESS , CUSTOMER_DETAIL_ADDRESS ,
@@ -289,7 +285,10 @@
 		<result property="deptEndDate" column="DEPT_END_DATE"  />
 		<result property="deptStartDate" column="DEPT_START_DATE"  />
 	</resultMap>
-     	
+     	<select id="customerId" resultType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
+			select * From customer;
+		</select>
+
      	<select id="selectDepartmentListByCompany" resultMap="departmentResult">
 			SELECT * FROM DEPARTMENT WHERE COMPANY_CODE = #{companyCode}
 		</select>

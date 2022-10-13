@@ -3,12 +3,9 @@ package kr.co.seoulit.logistics.logiinfosvc.compinfo.mapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.*;
 import org.apache.ibatis.annotations.Mapper;
-
-import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CodeDetailTO;
-import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CodeTO;
-import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.ImageTO;
-import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.LatLngTO;
+import org.apache.ibatis.annotations.Param;
 
 @Mapper
 public interface CodeMapper {
@@ -21,6 +18,7 @@ public interface CodeMapper {
 
 	public void deleteCode(CodeTO codeTO);
 
+	public ArrayList<CustomerTO> allCustomerList();
 	//codeDetail
 
 	ArrayList<CodeDetailTO> selectDetailCodeList(String divisionCode);
@@ -36,5 +34,6 @@ public interface CodeMapper {
 	public ArrayList<LatLngTO> selectLatLngList(String wareHouseCodeNo);
 	
 	public ArrayList<ImageTO> selectDetailItemList(String itemGroupCodeNo);
+	public void registerCustomer(CustomerTO to);
 	
 }

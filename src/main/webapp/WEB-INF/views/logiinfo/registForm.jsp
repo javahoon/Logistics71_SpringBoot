@@ -40,13 +40,16 @@
          $("#regist_board").submit();
       });
       
-      $("#regist_board").ajaxForm({
+      $("#registboard").ajaxForm({
+         url: "/logiinfo/boardList/view",
          dataType: "json",
-         success: function(data){ 
+         success: function(data){
+
+         },
+         error : function (){
             alert(data.errorMsg);
-            location.href = "/logiinfo/boardList/view";
          }
-      });   
+      });
    });
 
    /* 날짜 자리수 맞춰주는 함수 */
@@ -70,9 +73,9 @@
          <div class="container wow fadeInDown card1">
          <h3>글등록</h3>
          <table class="c1">            
-            <tr>   
+            <tr>
                <td>이름
-               <input type="text" name="name" value="${sessionScope.empName}${sessionScope.positionName}">
+               <input type="text" name="name" value="${sessionScope.empName}">
             </tr>
             <tr>   
                <td>제목
@@ -96,7 +99,7 @@
             </tr>
             <tr>   
                <td colspan="4">
-                  <input type="button" value="등록" id="registBoard">
+                  <input type="button" value="등록" id="registBoard" >
                   <input type="reset" value="취소">
                   <a href="/logiinfo/boardList/view" style=color:black>목록으로</a>
                </td>

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO;
 import org.springframework.ui.ModelMap;
 
 import kr.co.seoulit.logistics.busisvc.sales.controller.logisales.to.ContractInfoTO;
@@ -24,5 +25,5 @@ public interface SalesService {
 	public ModelMap deliver(String contractDetailNo);
 	
 	public ArrayList<DeliveryInfoTO> getDeliveryInfoList();
-	
+
 }

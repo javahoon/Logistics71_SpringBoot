@@ -250,6 +250,8 @@
       if (xhr.readyState == 4 && xhr.status == 200) {
         let txt = xhr.responseText;
         txt = JSON.parse(txt);
+        console.log('동기')
+        console.log(txt.gridRowJson)
         if (txt.gridRowJson == "") {
           swal.fire("수주 가능 견적이 없습니다.");
           return;

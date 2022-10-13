@@ -14,7 +14,31 @@
   	<select id="selectCodeList" resultMap="codeResult">
   		SELECT * FROM CODE ORDER BY DIVISION_CODE_NO
   	</select>
-  	
+
+  	<select id="allCustomerList" resultType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
+		select * from customer
+	</select>
+
+	<insert id="registerCustomer" parameterType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
+		insert into customer values(
+		 #{customerCode}
+		,#{workplaceCode}
+		,#{customerName}
+		,#{customerType}
+		,#{customerCeo}
+		,#{businessLicenseNumber}
+		,#{socialSecurityNumber}
+		,#{customerBusinessConditions}
+		,#{customerBusinessItems}
+		,#{customerZipCode}
+		,#{customerBasicAddress}
+		,#{customerDetailAddress}
+		,#{customerTelNumber}
+		,#{customerFaxNumber}
+		,#{customerNote}
+		,#{producedProduct})
+	</insert>
+
   	<insert id="insertCode" parameterType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CodeTO">
   		INSERT INTO CODE ( DIVISION_CODE_NO , 
 								  		CODE_TYPE , 

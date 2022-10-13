@@ -24,6 +24,7 @@ import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.ImageTO;
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.LatLngTO;
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.WorkplaceTO;
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.util.BoardFile;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class CompInfoServiceImpl implements CompInfoService {
@@ -72,7 +73,17 @@ public class CompInfoServiceImpl implements CompInfoService {
 		
 		return flag;
 	}
-
+	@Override
+	public ArrayList<CustomerTO> accountRegister(){
+		ArrayList<CustomerTO> customer=codeMapper.allCustomerList();
+		return customer;
+	}
+	@Override
+	public void registerCustomer(ArrayList<CustomerTO> toList) {
+		for(CustomerTO to : toList){
+			codeMapper.registerCustomer(to);
+		}
+	}
 	@Override
 	public HashMap<String, Object> batchCodeListProcess(ArrayList<CodeTO> codeList) {
 
@@ -1048,7 +1059,7 @@ public class CompInfoServiceImpl implements CompInfoService {
 			
 		}
 
-		public void removeBoard(int board_seq) {
+		public void removeBoard(@RequestParam int board_seq) {
 			
 			compInfoMapper.deleteBoard(board_seq);
 			

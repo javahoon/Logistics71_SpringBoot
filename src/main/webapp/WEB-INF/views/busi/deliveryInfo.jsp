@@ -418,6 +418,7 @@
         xhr.onreadystatechange = () => {
           if (xhr.readyState == 4 && xhr.status == 200) {
             let txt = xhr.responseText;
+            console.log(txt);
             txt = JSON.parse(txt);
             if (txt.errorCode < 0) {
               swal.fire("오류", txt.errorMsg, "error");

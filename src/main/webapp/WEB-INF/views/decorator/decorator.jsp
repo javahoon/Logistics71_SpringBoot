@@ -6,7 +6,7 @@
 <!doctype html>
 <html>
 <head>
-    <title>Estimulo71</title>
+    <title>강자훈바보</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="preconnect" href="https://fonts.gstatic.com">
@@ -70,7 +70,7 @@
                </div>
             </div>
         </nav>
-        <div>*_*</div>
+        <div> ಠ_ಠ (멀,..보시는거예요..?(주눅))</div>
         <sitemesh:write property='body'/>
     </div>
 </div>

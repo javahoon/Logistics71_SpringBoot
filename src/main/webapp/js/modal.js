@@ -12,8 +12,8 @@ let warehousingGrid = document.querySelector("#warehousingGrid");
 let workOrderSimulationGrid = document.querySelector("#workOrderSimulationGrid");
 let workSiteSituationGrid = document.querySelector("#workSiteSituationGrid");
 let to;                      // 전달 변수
-let transferVar = () => to;  // 전달 함수
-let isElement = []; 
+let transferlet = () => to;  // 전달 함수
+let isElement = [];
 
 // O Common GridOptions
 const gridOptions = {
@@ -54,13 +54,13 @@ const getListData = (divisionCodeNo) => {
     };
 };
 
-// O Setting Customer MODAL Grid FROM ajax data 
+// O Setting Customer MODAL Grid FROM ajax data
 /*    if (!isElement.includes(section)) {
         isElement.push(section);
     } else {
         return;
     } // 요소가 있으면 나오기!! */
-const setListModal = () => {   
+const setListModal = () => {
 
     let listGridOptions = gridOptions;
     listGridOptions.columnDefs = [
@@ -90,7 +90,7 @@ const setListModal = () => {
 	if(listGrid!=null){
 		listGrid.innerHTML="";
     	new agGrid.Grid(listGrid, listGridOptions);
-		listGridOptions.api.setRowData(jsonData.detailCodeList); 
+		listGridOptions.api.setRowData(jsonData.detailCodeList);
 	}
 };
 // O Get StandardUnitPrice
@@ -163,7 +163,7 @@ const getMpsList = () => {
         "?method=searchMpsInfo"
         + "&startDate=" + fromDate.value
         + "&endDate=" + toDate.value
-        + "&includeMrpApply=includeMrpApply",  // mrp적용된 데이터도 포함 
+        + "&includeMrpApply=includeMrpApply",  // mrp적용된 데이터도 포함
         true)
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.send();
@@ -275,7 +275,7 @@ const registerMrp = (mrpDate) => {  // mrp등록 (소요량 전개 일자)
                      위와 같이 작업이 처리되었습니다.`;
             console.log(mpsRowNodes);
 			for(let i=0;i<mpsRowNodes.length;i++){
-            	mpsRowNodes[i].setDataValue("mrpApplyStatus", 'Y'); 
+            	mpsRowNodes[i].setDataValue("mrpApplyStatus", 'Y');
 			}
             if (jsonData.errorCode != 0) {
                 Swal.fire({
@@ -332,13 +332,13 @@ const setMrpGatheringModal = () => {
     new agGrid.Grid(mrpGatheringGrid, mrpGatheringGridOptions);
 }
 // o get MrpGathering Data
-const getMrpGatheringModal = (mrpNoList) => {  // 소요량취합결과 데이터를 받아와 그리드에 세팅 
+const getMrpGatheringModal = (mrpNoList) => {  // 소요량취합결과 데이터를 받아와 그리드에 세팅
     mrpGatheringGridOptions.api.setRowData([]);
     let xhr = new XMLHttpRequest();
     mrpNoList = JSON.stringify(mrpNoList);
     xhr.open('GET', '/production/mrp/gathering-list' +
         "?method=getMrpGatheringList"
-        + "&mrpNoList=" + encodeURI(mrpNoList),  // 소요량취합되지 않은 mrp리스트를 보내고, 그들을 취합한다. 
+        + "&mrpNoList=" + encodeURI(mrpNoList),  // 소요량취합되지 않은 mrp리스트를 보내고, 그들을 취합한다.
         true)
     xhr.setRequestHeader('Accept', 'application/json');
     xhr.send();
@@ -366,7 +366,7 @@ const getMrpGatheringModal = (mrpNoList) => {  // 소요량취합결과 데이�
 }
 const registerMrpGathering = (mrpGatheringDate, mrpNoList, mrpNoAndItemCodeList) => {
     let xhr = new XMLHttpRequest();
-    //let mrpGatheringList = JSON.stringify(jsonData.gridRowJson); // 소요량취합결과 데이터 
+    //let mrpGatheringList = JSON.stringify(jsonData.gridRowJson); // 소요량취합결과 데이터
     mrpNoList = JSON.stringify(mrpNoList); // 소요량취합되지 않은 mrpno 목록
     mrpNoAndItemCodeList = JSON.stringify(mrpNoAndItemCodeList); // 소요량취합되지 않은 mrpno : itemCode
     xhr.open('POST', '/production/mrp/gathering' +
@@ -475,7 +475,7 @@ const setWarehousingModal = () => {
             if (params.value == "Y") {
                 return params.value =  "🟢" ;
             }
-            return '✖️' ; 
+            return '✖️' ;
         }},
     ];
     warehousingGridOptions.getRowNodeId = (data) => {
@@ -513,7 +513,7 @@ let workOrderSimulationGridOptions;
 const setWorkOrderSimulationModal = () => {
     workOrderSimulationGridOptions = gridOptions;
     workOrderSimulationGridOptions.columnDefs = [
-        
+
        // {headerName: "주생산계획번호", width: 500,field: "mpsNo", cellStyle: {'textAlign': 'center'}},
         {headerName: "소요량취합번호", width: 500,field: "mrpGatheringNo",cellStyle:{'textAlign': 'center'}},
 		{headerName: "소요량전개번호", width: 500, field: "mrpNo", cellStyle: {'textAlign': 'center'}},
@@ -640,7 +640,7 @@ const getOSListData = (condition) => {
 };
 // O 68_아웃소싱 Setting Customer MODAL Grid FROM ajax data
 
-const setOSListModal = () => {   
+const setOSListModal = () => {
     let listGridOptions = gridOptions;
 	listGridOptions.columnDefs = [
         {headerName: '거래처코드', field: 'customerCode', width: 80, cellStyle: {'textAlign': 'center'}},
@@ -671,16 +671,16 @@ const setOSListModal = () => {
 			itemTxt.value = to.itemName;
 			itemHiddenBox.value = to.itemCode;
 		}
-    }; 
+    };
 	listGridOptions.onGridReady = function () {
-    	listGridOptions.api.setRowData(jsonData.gridRowJson); 
+    	listGridOptions.api.setRowData(jsonData.gridRowJson);
     };
     listGrid.innerHTML="";
-	new agGrid.Grid(listGrid, listGridOptions);   
+	new agGrid.Grid(listGrid, listGridOptions);
 };
 
 const getLatLng = (wareHouseCodeNo) => {
-   
+
     let xhr = new XMLHttpRequest();
     xhr.open('GET',
         '/compinfo/code/latlng?method=findLatLngList&wareHouseCodeNo='+wareHouseCodeNo,
@@ -695,13 +695,13 @@ const getLatLng = (wareHouseCodeNo) => {
             console.log("jsonData");
             console.log(jsonData);
             console.log("jsonData.detailCodeList");
-            console.log(jsonData.detailCodeList);          
+            console.log(jsonData.detailCodeList);
               let lat = Number(jsonData.detailCodeList[0].latitude);
               let lng = Number(jsonData.detailCodeList[0].longitude);
-              
+
               console.log(lat);
               console.log(lng);
-              
+
               interceptor(lat,lng);
             if (jsonData.errorCode != 1) {
                console.log('데이터를 불러드리는데 오류가 발생했습니다.');
@@ -711,15 +711,15 @@ const getLatLng = (wareHouseCodeNo) => {
                 });
                 return;
             }else{
-            
-         }   
-         
+
+         }
+
         }
     };
 };
 
 const getItemImage = (itemGroupCodeNo) => {
-   
+
     let xhr = new XMLHttpRequest();
     xhr.open('GET',
         '/compinfo/code/itemimage?method=findDetailImageList&itemGroupCodeNo='+itemGroupCodeNo,

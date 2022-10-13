@@ -266,7 +266,7 @@
   // ======= myGridoptions ===========================================================
   // O customerList Grid  
   let estColumn = [
-    {headerName: "거래처명", field: "customerName", editable: true},
+    {headerName: "거래처명", field: "customerName", editable: true}, // editable: 편집가능한 문자열로 EditText 의 기본 Type , field는 변수명
     {headerName: "거래처코드", field: "customerCode", editable: true, hide: true},
     {headerName: "견적일자", field: "estimateDate"},
     {
@@ -299,7 +299,7 @@
     onGridSizeChanged: function (event) {
       event.api.sizeColumnsToFit();
     },
-    onCellEditingStarted: (event) => { // 거래처명을 클릭했을 때 걸려있는 이벤트
+    onCellEditingStarted: (event) => { // 거래처명을 더블클릭하면 실행되는 이벤트
       if (event.colDef.field == "customerName") { //만약 필드이름이 cutomerName거래처명인 경우 밑의 click메서드 실행
         customerList.click();
       }
@@ -391,10 +391,10 @@
               });
               return;
       } 
-      
+
       let row = {     // 그냥 견적추가, 값을 받아오는 아이
         estimateDate: datepicker.value,  // estimateDate: 견적일자
-        personCodeInCharge: "${sessionScope.empCode}",  // personCodeInCharge: 견적담당자코드  위에서 선언되어 있는 거 찾아오면 됨.
+        personCodeInCharge: "${sessionScope.empCode}",  // personCodeInCharge: 견적담당자코드  위에서 선언되어 있는 거 찾아오면 됨. 프로시저(?)에 mapper에 있는 값 가져오는듯
         personNameCharge: "${sessionScope.empName}",   // 'ag-Grid에 띄워지는 아이들의 값을 받아온다'고 볼 수 있다.
         effectiveDate: "",
         estimateRequester: "${sessionScope.empName}",
@@ -432,20 +432,20 @@
       }
       
       let row = { // 버튼을 누르자마자 빈 그리드가 위치 되어지기 때문에 다 공백처리로 빈 값을 넣어놓는다고 볼 수 있다
-       itemCode: "",
-        dueDateOfEstimate: "",
-        unitOfEstimate: "EA",
-        status: "INSERT",
-        description: "",
-        beforeStatus: "",
-        estimateAmount: "",
+       itemCode: "",          // 품목코드
+        dueDateOfEstimate: "",  // 납기일
+        unitOfEstimate: "EA",  //단위
+        status: "INSERT",      // status
+        description: "",      //비고
+        beforeStatus: "",     // status
+        estimateAmount: "",    // 견적수량
       };
       estDetailGridOptions.api.updateRowData({add: [row]});  // 여기에 다가 위의 변수들을 넣어준다. 하지만 이 상태에서 견적상세등록 칸에 ag-Grid가 들어가는 건 아니다.
     }
   }
 //---------------------------------------------------------------------------------------
   function deleteRow(event) { // o 견적삭제 버튼
-    let selected = estGridOptions.api.getFocusedCell();                   // 견적
+    let selected = estGridOptions.api.getFocusedCell();   // 견적
     if (selected == undefined) {
       Swal.fire({
         text: "선택한 행이 없습니다.",
@@ -453,7 +453,7 @@
       })
       return;
     }
-    if (event.id == "estimateDeleteButton") {
+    if (event.id == "estimateDeleteButton") {  // 버튼 id 일치하면 실행
       estGridOptions.rowData.splice(selected.rowIndex, 1);
       estGridOptions.api.setRowData(estGridOptions.rowData);
     } else if (event.id == "estimateDetailDeleteButton"){
@@ -638,7 +638,7 @@
     newEstimateRowValue.estimateDetailTOList = selectedRows;    // 여기 코드가 이상해서 이 부분만 보면 될 듯
     //console.log('@@@@@@@@@@@@ HERE!!!@@@@@@@@@@@@@')
     console.log(newEstimateRowValue.estimateDetailTOList);
-                                                                                                                      // *** 상세추가그리드 부분을 estimateDetailTOList에 담아서 위의 추가 그리드에 합쳐준 다음 일괄저장으로 같이 데이터를 넘겨준다고 생각하면 된다. ***
+      // *** 상세추가그리드 부분을 estimateDetailTOList에 담아서 위의 추가 그리드에 합쳐준 다음 일괄저장으로 같이 데이터를 넘겨준다고 생각하면 된다. ***
     newEstimateRowValue = JSON.stringify(newEstimateRowValue);  // 받아온 값들을 JSON형태로 바꾸어준다고 생각=> 문자열로 변환
     Swal.fire({
       title: "견적을 등록하시겠습니까?",

@@ -16,6 +16,7 @@ import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.FinancialAccountAssociate
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.ImageTO;
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.LatLngTO;
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.WorkplaceTO;
+import org.apache.ibatis.annotations.Param;
 
 public interface CompInfoService {
 
@@ -73,9 +74,9 @@ public interface CompInfoService {
 	
 	public void addBoard(BoardTO board);
 	
-	public BoardTO getBoard(int board_seq);
+	public BoardTO getBoard(@Param("board_seq") int board_seq);
 	
-	public BoardTO getBoard(String sessionId,int board_seq);
+	public BoardTO getBoard(String sessionId, int board_seq);
 	
 	public void changeHit(int board_seq);
 	
@@ -84,4 +85,6 @@ public interface CompInfoService {
 	public ArrayList<BoardTO> getBoardList(int sr, int er);
 	
 	public void removeBoard(int board_seq);
+	public ArrayList<CustomerTO> accountRegister();
+	public void registerCustomer(ArrayList<CustomerTO> toList);
 }
