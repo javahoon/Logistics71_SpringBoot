@@ -27,12 +27,12 @@
         end =   year + '' + month + '' + day;
         //$('#datepicker').text(year + '-' + month + '-' + day);
         // o set searchDate
-        $('#datepicker').datepicker({
-          startDate: '-1d',
-          endDate: end,
-          todayHiglght: true,
-          autoHide: true,
-          autoaShow: true,
+        $('#datepicker').datepicker({          // datepicker라는 input 태그의 id
+          startDate: '-1d',               //달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능
+          endDate: end,                   //달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가
+          todayHiglght: true,             //오늘 날짜에 하이라이팅 기능 기본값 :false
+          autoHide: true,                 //날짜 선택하면 창이 닫힘
+          autoShow: false,                //datePicker있는 페이지에 들어가면 자동으로 date 열림
         })
         })
    
@@ -178,7 +178,7 @@
      const amountList = document.querySelector('#amountList');
      const batchSaveButton = document.querySelector("#batchSaveButton");
   
-     // O setup the grid after the page has finished loading
+     // O set up the grid after the page has finished loading
      document.addEventListener('DOMContentLoaded', () => { // 브라우저가 로드되기 전에 밑에 agGrid가 먼저 로드된다. 이것이 DOMContentLoaded
          new agGrid.Grid(myGrid, estGridOptions); // 첫번째 Grid에 estGridOptions이  걸려있다고 보면 된다. 
           new agGrid.Grid(myGrid2, estDetailGridOptions);  // 두번째 Grid에 estDetailGridOptions가 걸린다.

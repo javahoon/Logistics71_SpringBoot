@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CodeDetailTO;
 import org.json.JSONObject;
 import org.json.JSONArray;
 
@@ -14,10 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -92,12 +90,29 @@ public class CustomerController {
         return map;
     }
 
-    @RequestMapping(value = "/customer/registerAccount", method = RequestMethod.GET)
-    public ModelMap registerAccount(@RequestParam("toList") String toList) {
-        map= new ModelMap();
-        ArrayList<CustomerTO> customerList = gson.fromJson(toList, new TypeToken<ArrayList<CustomerTO>>() {
-        }.getType()); // gson을 쓰는 이유는 넘어오는 값들을 하나하나 담아주기 위함이라고함 분석필요 ㅠ
-        compInfoService.registerCustomer(customerList);
-        return null;
+/*
+    @RequestMapping(value = "/customer/registerAccount", method = RequestMethod.POST)
+    public ModelMap registerAccount(@RequestParam("toList") HashMap<String,Object> toList) {
+        //HashMap<String,String> toL = gson.fromJson(toList,new TypeToken<HashMap<String,String>>() {}.getType());
+       // gson을 쓰는 이유는 넘어오는 값들을 하나하나 담아주기 위함이라고함 분석필요 ㅠ
+        ModelMap map=new ModelMap();
+        map.put("toList",toList);
+        compInfoService.registerCustomer(map);
+        return map;
+        }
+*/
+
+    @RequestMapping(value = "/customer/registerAccount", method = RequestMethod.POST)
+    public ModelMap registerAccount(HttpServletRequest request) {
+        ModelMap map = new ModelMap();
+        String toList = request.getParameter("toList");
+        ArrayList<CustomerTO> cto_list = gson.fromJson(toList,new TypeToken<ArrayList<CustomerTO>>() {}.getType());
+        // gson을 쓰는 이유는 넘어오는 값들을 하나하나 담아주기 위함이라고함 분석필요 ㅠ
+
+       // System.out.println("test : "+cto_list.get(0).getCustomerName());
+        compInfoService.registerCustomer(cto_list);
+        return map;
     }
+
 }
+

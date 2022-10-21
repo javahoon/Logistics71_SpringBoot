@@ -18,16 +18,38 @@
   	<select id="allCustomerList" resultType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
 		select * from customer
 	</select>
-
-	<insert id="registerCustomer" parameterType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
-		insert into customer values(
+	<parameterMap type="map" id="customerCode">
+		<parameter property="customerCode" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="workplaceCode" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="customerName" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="customerType" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="customerCeo" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="businessLicenseNumber" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="socialSecurityNumber" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="customerBusinessConditions" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="customerBusinessItems" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="customerZipCode" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="customerBasicAddress" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="customerDetailAddress" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="customerTelNumber" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="customerFaxNumber" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="customerNote" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+		<parameter property="producedProduct" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+	</parameterMap>
+	<insert id="registerCustomer" parameterMap="customerCode" statementType="CALLABLE">
+		<![CDATA[
+		{call P_CUSTOMER_CODE(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}
+		]]>
+	</insert>
+<!--	<insert id="customerCode" parameterType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
+	insert into customer values(
 		 #{customerCode}
 		,#{workplaceCode}
 		,#{customerName}
 		,#{customerType}
 		,#{customerCeo}
 		,#{businessLicenseNumber}
-		,#{socialSecurityNumber}
+		,#{socialSecurityNumber}              // 거랯터 등록
 		,#{customerBusinessConditions}
 		,#{customerBusinessItems}
 		,#{customerZipCode}
@@ -37,8 +59,26 @@
 		,#{customerFaxNumber}
 		,#{customerNote}
 		,#{producedProduct})
-	</insert>
+	</insert>-->
+<!--	<parameterMap type="map" id="codeRegister">
+		<parameter property="contractDetailNo" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN"/>
+		<parameter property="ERROR_CODE" javaType="java.lang.Integer" jdbcType="DECIMAL" mode="OUT"/>
+		<parameter property="ERROR_MSG" javaType="java.lang.String" jdbcType="VARCHAR" mode="OUT"/>
+	</parameterMap>
 
+
+	<insert id="codeRegister" parameterType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CodeDetailTO">
+		INSERT INTO code_detail (DIVISION_CODE_NO
+		,DETAIL_CODE
+		,DETAIL_CODE_NAME
+		,CODE_USE_CHECK
+		,DESCRIPTION)
+		VALUES (DIVISION_CODE_NO='CL-01',
+				DETAIL_CODE=#{detailCode},
+				DETAIL_CODE_NAME=#{detailCodeName},
+				CODE_USE_CHECK=null,
+				DESCRIPTION=null)
+	</insert>-->
   	<insert id="insertCode" parameterType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CodeTO">
   		INSERT INTO CODE ( DIVISION_CODE_NO , 
 								  		CODE_TYPE , 
@@ -46,7 +86,7 @@
 								  		CODE_CHANGE_AVAILABLE , 
 								  		DESCRIPTION )
   		VALUES ( #{divisionCodeNo} , 
-				  		#{codeType} , 
+				  		#{codeType} ,
 				  		#{divisionCodeName} , 
 				  		#{codeChangeAvailable} , 
 				  		#{description} )

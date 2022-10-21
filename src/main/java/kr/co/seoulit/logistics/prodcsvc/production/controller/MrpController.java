@@ -88,8 +88,8 @@ public class MrpController {
 		String mrpRegisterDate = request.getParameter("mrpRegisterDate");
 		map = new ModelMap();
 		try {
-			ArrayList<String> mpsList = gson.fromJson(batchList, 
-					new TypeToken<ArrayList<String>>() { }.getType());
+			ArrayList<String> mpsList = gson.fromJson(batchList,
+					new TypeToken<ArrayList<String>>() {}.getType());
 			HashMap<String, Object> resultMap = productionService.registerMrp(mrpRegisterDate, mpsList);	 
 			
 			map.put("result", resultMap.get("result"));

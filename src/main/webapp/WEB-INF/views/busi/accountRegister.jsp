@@ -36,7 +36,7 @@
             method: "GET",                          //GET 메소드는 주로 데이터를 읽거나(Read) 검색(Retrieve)할 때에 사용
                                                     //POST 메소드는 주로 새로운 리소스를 생성(create)할 때 사용
             success: (obj) => {                     // url의 경로가 성공적이면 실행
-                console.log(obj.customer+"abvced");
+                //console.log(obj.customer+"abvced");
                 estGridOptions.api.setRowData(obj.customer)
                 // estGridOptions.api.setRowData()는 데이터를 교체하는것이라고함 , 빈배열에 컨트롤러에서 가져온 값들을 넣기위함
             }
@@ -63,7 +63,6 @@
             {headerName: "생산된 제품", field: "producedProduct"}
 
         ];
-
         let estRowData = [];     // 빈 배열을 넣음
 
         // event.colDef.field
@@ -108,7 +107,7 @@
             {headerName: "고객전화번호", field: "customerTelNumber", editable: true},
             {headerName: "고객 팩스 번호", field: "customerFaxNumber", editable: true},
             {headerName: "고객노트", field: "customerNote", editable: true},
-            {headerName: "생산된 제품", field: "producedProduct"}
+            {headerName: "생산된 제품", field: "producedProduct", editable: true}
         ];
 
         let row = {
@@ -130,7 +129,7 @@
             producedProduct: ""
         };
 
-       function f() {
+        function f() {
             registerOptions.api.updateRowData({add: [row]}); // 버튼 클릭시 option에 row의 값을 업데이트한다
         }
 
@@ -151,41 +150,34 @@
                 return selectedData;
             }
         }
+
+
         function ff() {
-                let xhr = new XMLHttpRequest(); /*  XMLHttpRequest는 HTTP를 통해서 쉽게 데이터를 받을 수 있게 해주는 오브젝트를 제공한다
+            let data = registerOptions.getSelectedRowData();
+            let xhr = new XMLHttpRequest(); /*  XMLHttpRequest는 HTTP를 통해서 쉽게 데이터를 받을 수 있게 해주는 오브젝트를 제공한다
                                                     Ajax로 실행되는 HTTP 통신도 XMLHttpRequest규격을 이용함  */
             // XHR을 사용하면 페이지의 새로고침 없이도 URL에서 데이터를 가져올 수 있습니다
-                xhr.open('GET', "/compinfo/customer/registerAccount?"   // 요청을 초기화합니다 , URL 경로
-                    + "toList=" + encodeURI(JSON.stringify(registerOptions.getSelectedRowData()))  // 열에 입력된 문자를 인코딩된 문자열로 바꿈
-                    , true)
-                xhr.setRequestHeader('Accept', 'application/json');  // HTTP 요청 헤더의 값을 설정합니다. 반드시 send()보다 먼저, 그러나 open()보다 뒤에 호출해야함
-                xhr.send();                    // 요청을 전송합니다. 비동기 요청(기본 동작)인 경우, send()는 요청을 전송하는 즉시 반환
-                xhr.onreadystatechange = () => {                    // readyState 속성이 바뀔 때마다 발생합니다. onreadystatechange 속성으로도 수신할 수 있음
-                    if (xhr.readyState == 4 && xhr.status == 200) {
-                        let txt = xhr.responseText;
-                        console.log(txt);
-                        txt = JSON.parse(txt);
-                        if (txt.errorCode < 0) {
-                            swal.fire("오류", txt.errorMsg, "error");
-                            return;
-                        }
-                        Swal.fire(
-                            '성공!',
-                            'success'
-                        )
-                        console.log(txt);
-
-
-                        registerOptions.api.setRowData([]);  // 문자열들을 배열에 담음
-
+            xhr.open('POST', "${pageContext.request.contextPath}/compinfo/customer/registerAccount?toList=" // 위의 값들을 addNewEstimate.do를 호출시켜서 던질거임
+              + encodeURI(JSON.stringify(data)),
+                true);
+            xhr.setRequestHeader('Accept', 'application/json');// (헤더이름,헤더값) HTTP요청 헤더에 포함하고자 하는 헤더 이름과 그 값인데 전에 무조건 open()뒤에는 send()메소드를 써주어야 한다.
+            xhr.send(); // 요청을 전송합니다. 비동기 요청(기본 동작)인 경우, send()는 요청을 전송하는 즉시 반환
+            xhr.onreadystatechange = () => {                    // readyState 속성이 바뀔 때마다 발생합니다. onreadystatechange 속성으로도 수신할 수 있음
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let txt = xhr.responseText;
+                    txt = JSON.parse(txt);
+                    if (txt.errorCode < 0) {
+                        swal.fire("오류", txt.errorMsg, "error");
+                        return;
                     }
-                }
-                location.reload();   // 클릭하면 다시 로드
-            }
-          /*  location.href("/compinfo/customer/registerAccount?"
-                + "toList=" + encodeURI(JSON.stringify(registerOptions.getSelectedRowData())));*/
-           // console.log(encodeURI(JSON.stringify(registerOptions.getSelectedRowData())));
 
+                    registerOptions.api.setRowData([]);  // 문자열들을 배열에 담음
+                }
+            }
+            // console.log(registerOptions.getSelectedRowData()[0]+"@@@@@@@@@@@");
+
+          //  location.reload();   // 클릭하면 다시 로드
+        }
 
 
 

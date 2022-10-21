@@ -25,5 +25,6 @@ public class CustomerTO extends BaseTO  {
 	 private String itemCode;
 	 private String itemName;
 	 private String itemGroupName;
+	 private String divisionCodeNo;
 
 }

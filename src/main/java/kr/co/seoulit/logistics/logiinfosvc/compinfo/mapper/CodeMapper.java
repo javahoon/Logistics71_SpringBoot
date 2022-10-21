@@ -6,10 +6,12 @@ import java.util.HashMap;
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.ui.ModelMap;
 
 @Mapper
 public interface CodeMapper {
 
+	public void codeRegister(String detailCode,String detailCodeName);
 	public ArrayList<CodeTO> selectCodeList();
 
 	public void insertCode(CodeTO codeTO);

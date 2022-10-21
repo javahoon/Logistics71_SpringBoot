@@ -17,6 +17,7 @@ import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.ImageTO;
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.LatLngTO;
 import kr.co.seoulit.logistics.logiinfosvc.compinfo.to.WorkplaceTO;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.ui.ModelMap;
 
 public interface CompInfoService {
 
@@ -86,5 +87,7 @@ public interface CompInfoService {
 	
 	public void removeBoard(int board_seq);
 	public ArrayList<CustomerTO> accountRegister();
-	public void registerCustomer(ArrayList<CustomerTO> toList);
+	public void registerCustomer(ArrayList<CustomerTO> cto_list);
+
+	public void codeRegi(String detailCode,String detailCodeName);
 }

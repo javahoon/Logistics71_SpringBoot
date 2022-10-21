@@ -12,7 +12,7 @@ let warehousingGrid = document.querySelector("#warehousingGrid");
 let workOrderSimulationGrid = document.querySelector("#workOrderSimulationGrid");
 let workSiteSituationGrid = document.querySelector("#workSiteSituationGrid");
 let to;                      // 전달 변수
-let transferlet = () => to;  // 전달 함수
+let transferVar = () => to;  // 전달 함수
 let isElement = [];
 
 // O Common GridOptions
