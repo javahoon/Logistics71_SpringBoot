@@ -11,7 +11,6 @@ import org.springframework.ui.ModelMap;
 @Mapper
 public interface CodeMapper {
 
-	public void codeRegister(String detailCode,String detailCodeName);
 	public ArrayList<CodeTO> selectCodeList();
 
 	public void insertCode(CodeTO codeTO);
@@ -20,7 +19,7 @@ public interface CodeMapper {
 
 	public void deleteCode(CodeTO codeTO);
 
-	public ArrayList<CustomerTO> allCustomerList();
+	public ArrayList<CustomerTO> selectCustomerList();
 	//codeDetail
 
 	ArrayList<CodeDetailTO> selectDetailCodeList(String divisionCode);
@@ -36,6 +35,6 @@ public interface CodeMapper {
 	public ArrayList<LatLngTO> selectLatLngList(String wareHouseCodeNo);
 	
 	public ArrayList<ImageTO> selectDetailItemList(String itemGroupCodeNo);
-	public void registerCustomer(CustomerTO to);
+	public void insertCustomer(CustomerTO to);
 	
 }

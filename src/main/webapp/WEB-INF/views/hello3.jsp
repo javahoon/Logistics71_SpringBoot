@@ -15,7 +15,6 @@
     background-color: goldenrod;
  	 }
 	#change-chart:hover{
-	transition : width 150px;
 	background-color : chocolate;
 	transition : 2s; 
 	}
@@ -28,7 +27,6 @@
     background-color: goldenrod;
 	}
 	#go-covid:hover{
-	transition : width 150px;
 	background-color : chocolate;
 	transition : 2s;
 	}
@@ -41,7 +39,6 @@
     background-color: goldenrod;
 	}
 	#how-to-visit:hover{
-	transition : width 150px;
 	background-color : chocolate;
 	transition : 2s;
 	}

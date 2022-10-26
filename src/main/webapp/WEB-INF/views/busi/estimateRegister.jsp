@@ -18,19 +18,20 @@
  <!--   ========datepicker style 적용=====================================================================    -->  
     <script>
       $(function () {
+
         let end = new Date();
         let year = end.getFullYear();              //yyyy
         let month = (1 + end.getMonth());          //M
         month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
         let day = end.getDate();                   //d
-        day = day >= 10 ? day : '0' + day;          //day 두자리로 저장
+        day = day >= 10 ? day : '0' + day;          //day 두자리로 저장 day가 10보다 크거나 같으면 day를 반환 작으면 0을 넣어주고 day를 반환
         end =   year + '' + month + '' + day;
         //$('#datepicker').text(year + '-' + month + '-' + day);
         // o set searchDate
         $('#datepicker').datepicker({          // datepicker라는 input 태그의 id
           startDate: '-1d',               //달력에서 선택 할 수 있는 가장 빠른 날짜. 이전으로는 선택 불가능
-          endDate: end,                   //달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가
-          todayHiglght: true,             //오늘 날짜에 하이라이팅 기능 기본값 :false
+          endDate: end ,                   //달력에서 선택 할 수 있는 가장 느린 날짜. 이후로 선택 불가 ( 달을 의미하는듯함 )
+          todayHiglght: false,             //오늘 날짜에 하이라이팅 기능 기본값 :false
           autoHide: true,                 //날짜 선택하면 창이 닫힘
           autoShow: false,                //datePicker있는 페이지에 들어가면 자동으로 date 열림
         })
@@ -185,10 +186,10 @@
       })
   //================================================================================     
   // O DATEPICKER    => dbClick 하면 할 수 있게끔
-  function getDatePicker(paramFmt) {
+  function getDatePicker(paramFmt) {    // 여러개의 DatePicker 생성가능
     let _this = this;
     _this.fmt = "yyyy-mm-dd";
-    console.log(_this);
+    // console.log(_this+"확인확인"); [object Window]확인확인
 
     // function to act as a class
     function Datepicker() {
@@ -240,23 +241,24 @@
     };
     // gets called once when grid ready to insert the element
     Datepicker.prototype.getGui = function () {
+        console.log(this.eInput+"getGui");     // 유효일자 무엇을 클릭하든 실행됨 [object HTMLInputElement]
       return this.eInput;
     };
 
     // focus and select can be done after the gui is attached
-    Datepicker.prototype.afterGuiAttached = function () {
-      this.eInput.focus();
-      console.log(this.eInput.value);
+    Datepicker.prototype.afterGuiAttached = function () { // 유효일자 날짜 선택시 실행되는 이벤트
+      this.eInput.focus();                                  // 값이 있으면 값이나옴
+      console.log(this.eInput.value+"afterGuiAttached");
     };
 
     // returns the new value after editing
-    Datepicker.prototype.getValue = function () {
-      console.log(this.eInput);
+    Datepicker.prototype.getValue = function () {    // 견적추가 버튼 누르고 유효일자 날짜선택후 실행되는 이벤트 [object HTMLInputElement]나옴
+      console.log(this.eInput+"getvalue");
       return this.eInput.value;
     };
 
     // any cleanup we need to be done here
-    Datepicker.prototype.destroy = function () {
+    Datepicker.prototype.destroy = function () {    // Datepicker 값을 초기화한다(prototype) 변수명(destroy)
       estGridOptions.api.stopEditing();
     };
 
@@ -269,8 +271,7 @@
     {headerName: "거래처명", field: "customerName", editable: true}, // editable: 편집가능한 문자열로 EditText 의 기본 Type , field는 변수명
     {headerName: "거래처코드", field: "customerCode", editable: true, hide: true},
     {headerName: "견적일자", field: "estimateDate"},
-    {
-      headerName: "유효일자", field: "effectiveDate", editable: true, cellRenderer: function (params) {
+    {headerName: "유효일자", field: "effectiveDate", editable: true, cellRenderer: function (params) {
         if (params.value == "") { params.value = "YYYY-MM-DD";}
         return '📅 ' + params.value;
       }, cellEditor: 'datePicker1'
@@ -291,8 +292,8 @@
     getRowNodeId: function (data) {
       return data.estimateDate;
     },
-    defaultColDef: {editable: false},
-    overlayNoRowsTemplate: "추가된 견적이 없습니다.",
+    defaultColDef: {editable: false},                 // 공통 기본 정의 모든 그리드에 값을 넣어줌
+    overlayNoRowsTemplate: "추가된 견적이 없습니다.",     // 그리드 속성에 일반HTML 문자열을 제공
     onGridReady: function (event) {// onload 이벤트와 유사 ready 이후 필요한 이벤트 삽입한다.
       event.api.sizeColumnsToFit();
     },
@@ -324,7 +325,7 @@
     {headerName: "단위", field: "unitOfEstimate",},
     {headerName: "납기일", field: "dueDateOfEstimate", editable: true, cellRenderer: function (params) {
         if (params.value == "") { params.value = "YYYY-MM-DD";}
-        return '📅 ' + params.value;
+        return '📅 ' + params.value;             // 납기일의 값이 null이면  yyyymmdd를 표기한다
       }, cellEditor: 'datePicker2'},
     {headerName: "견적수량", field: "estimateAmount", editable: true,},
     {headerName: "견적단가", field: "unitPriceOfEstimate", hide: false},

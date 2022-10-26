@@ -15,7 +15,7 @@
   		SELECT * FROM CODE ORDER BY DIVISION_CODE_NO
   	</select>
 
-  	<select id="allCustomerList" resultType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
+  	<select id="selectCustomerList" resultType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
 		select * from customer
 	</select>
 	<parameterMap type="map" id="customerCode">
@@ -36,7 +36,7 @@
 		<parameter property="customerNote" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
 		<parameter property="producedProduct" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
 	</parameterMap>
-	<insert id="registerCustomer" parameterMap="customerCode" statementType="CALLABLE">
+	<insert id="insertCustomer" parameterMap="customerCode" statementType="CALLABLE">
 		<![CDATA[
 		{call P_CUSTOMER_CODE(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}
 		]]>

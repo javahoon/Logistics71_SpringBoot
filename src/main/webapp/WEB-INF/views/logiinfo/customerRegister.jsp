@@ -176,7 +176,7 @@
             }
             // console.log(registerOptions.getSelectedRowData()[0]+"@@@@@@@@@@@");
 
-          //  location.reload();   // 클릭하면 다시 로드
+           location.reload();   // 클릭하면 다시 로드
         }
 
 

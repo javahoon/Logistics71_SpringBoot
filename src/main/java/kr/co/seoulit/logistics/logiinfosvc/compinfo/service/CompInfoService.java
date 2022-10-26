@@ -86,8 +86,7 @@ public interface CompInfoService {
 	public ArrayList<BoardTO> getBoardList(int sr, int er);
 	
 	public void removeBoard(int board_seq);
-	public ArrayList<CustomerTO> accountRegister();
+	public ArrayList<CustomerTO> findCustomerList();
 	public void registerCustomer(ArrayList<CustomerTO> cto_list);
 
-	public void codeRegi(String detailCode,String detailCodeName);
 }

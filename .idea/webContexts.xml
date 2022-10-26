@@ -4,6 +4,7 @@
     <option name="state">
       <map>
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi/accountRegister.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi/contractRegister.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi/estimateRegister.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi" />
       </map>
     </option>

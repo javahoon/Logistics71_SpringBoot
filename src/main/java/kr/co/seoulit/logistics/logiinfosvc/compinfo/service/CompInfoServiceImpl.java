@@ -75,19 +75,16 @@ public class CompInfoServiceImpl implements CompInfoService {
 		return flag;
 	}
 	@Override
-	public ArrayList<CustomerTO> accountRegister(){
-		ArrayList<CustomerTO> customer=codeMapper.allCustomerList();
+	public ArrayList<CustomerTO> findCustomerList(){
+		ArrayList<CustomerTO> customer=codeMapper.selectCustomerList();
 		return customer;
 	}
 	@Override
 	public void registerCustomer(ArrayList<CustomerTO> cto_list) {
 		for(CustomerTO to : cto_list)
-			codeMapper.registerCustomer(to);
+			codeMapper.insertCustomer(to);
 	}
-	@Override
-	public void codeRegi(String detailCode,String detailCodeName) {
-			codeMapper.codeRegister(detailCode,detailCodeName);
-	}
+
 	@Override
 	public HashMap<String, Object> batchCodeListProcess(ArrayList<CodeTO> codeList) {
 

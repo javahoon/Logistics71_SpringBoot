@@ -20,7 +20,7 @@ public class BoardTO {
 	private String content;		// 내용
 	private int hit;			// 조회수
 	
-	private List<BoardFile> boardFiles = new ArrayList<BoardFile>();
+	private List<BoardFile> boardFiles = new ArrayList<>();
 
 	public void addBoardFile(BoardFile boardFile){
 		boardFiles.add(boardFile);
