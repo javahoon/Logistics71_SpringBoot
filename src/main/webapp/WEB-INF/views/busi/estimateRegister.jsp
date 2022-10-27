@@ -518,7 +518,7 @@
   function setDataOnCustomerName() {
     let rowNode = estGridOptions.api.getRowNode(datepicker.value);
     let to = transferVar();
-    rowNode.setDataValue("customerName", to.detailCodeName);
+    rowNode.setDataValue("customerName", to.detailCodeName); //변경 사항을 반영하기 위해 자동으로 새로 고쳐짐
     rowNode.setDataValue("customerCode", to.detailCode);
     let newData = rowNode.data;
     rowNode.setData(newData);

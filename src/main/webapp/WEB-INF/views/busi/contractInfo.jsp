@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="javascript" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
@@ -112,8 +112,8 @@
             <div>
                 <label for="searchByDateRadio">기간검색</label>
                 <input type="radio" name="searchCondition" value="searchByDate" id="searchByDateRadio" checked>
-                &nbsp;<label for="searchByDateDateRadio">거래처 검색</label>
-                <input type="radio" name="searchCondition" value="searchByCustomer" id="searchByDateRadio">
+                &nbsp;<label for="searchByDateRadio1">거래처 검색</label>
+                <input type="radio" name="searchCondition" value="searchByCustomer" id="searchByDateRadio1">
             </div>
 
             <form autocomplete="off">

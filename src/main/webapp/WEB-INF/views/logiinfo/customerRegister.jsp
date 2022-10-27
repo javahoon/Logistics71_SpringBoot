@@ -37,7 +37,7 @@
                                                     //POST 메소드는 주로 새로운 리소스를 생성(create)할 때 사용
             success: (obj) => {                     // url의 경로가 성공적이면 실행
                 //console.log(obj.customer+"abvced");
-                estGridOptions.api.setRowData(obj.customer)
+                estGridOptions.api.setRowData(obj.customer) // = 컨트롤러의 list 출력
                 // estGridOptions.api.setRowData()는 데이터를 교체하는것이라고함 , 빈배열에 컨트롤러에서 가져온 값들을 넣기위함
             }
         })
@@ -86,13 +86,12 @@
                  style="height:100px; width:auto; text-align: center;"></div>
         </div>
     </article>
-    <button onclick="f()">추가하기시작</button>
-    <button onclick="ff()">추가하기</button>
+    <button onclick="ff()">등록</button>
     <script>
         const registerAccount = document.querySelector("#registerAccount");
         let registerEstColumn = [
-            { checkboxSelection: true,headerCheckboxSelectionFilteredOnly: true,headerCheckboxSelection: true}, // 어떤 열을 보낼지 선택하도록 체크박스 추가
-            {headerName: "고객 코드", field: "customerCode", editable: true,}, // editable: 편집가능한 문자열로 EditText 의 기본 Type , field는 변수명
+            {checkboxSelection: true,headerCheckboxSelectionFilteredOnly: true,headerCheckboxSelection: true}, // 어떤 열을 보낼지 선택하도록 체크박스 추가
+            {headerName: "고객 코드", field: "customerCode", editable: true}, // editable: 편집가능한 문자열로 EditText 의 기본 Type , field는 변수명
             {headerName: "직장코드", field: "workplaceCode", editable: true},
             {headerName: "고객 이름", field: "customerName", editable: true},
             {headerName: "고객유형", field: "customerType", editable: true},
@@ -111,7 +110,7 @@
         ];
 
         let row = {
-            customerCode: "",
+            customerCode: null,
             workplaceCode: "",
             customerName: "",
             customerType: "",
@@ -128,9 +127,19 @@
             customerNote: "",
             producedProduct: ""
         };
-
+        /*console.log(registerOptions.rowData(row)+"tqtq");
+                    if(registerOptions.api.RowData!=undefined){
+                        Swal.fire({
+                            icon: 'error',
+                            title: '열 존재',
+                            text: '이미 추가시작한 열이 있습니다.',
+                        })
+                    }
+                    else {*/
         function f() {
-            registerOptions.api.updateRowData({add: [row]}); // 버튼 클릭시 option에 row의 값을 업데이트한다
+            //console.log(row.customerCode.data);
+                registerOptions.api.updateRowData({add: [row]}); // 버튼 클릭시 option에 row의 값을 업데이트한다
+
         }
 
 
@@ -140,12 +149,13 @@
             rowData: estRowData,            // 그리드에 표시할 데이터를 설정
             onGridReady: function (event) { // 그리드가 시작하자마자 실행되는거
                 event.api.sizeColumnsToFit();//자동으로 글자나 이것저것 크기조정
+                registerOptions.api.updateRowData({add: [row]});
             },
             onGridSizeChanged: function (event) { // 창크기가 변경되면 실행되는 이벤트
                 event.api.sizeColumnsToFit();
             },
             getSelectedRowData() {
-                let selectedNodes = this.api.getSelectedNodes();     // Object 찍힘
+                let selectedNodes = this.api.getSelectedNodes();     // Object 찍힘  (선택한 열?)
                 let selectedData = selectedNodes.map(node => node.data); // Object 찍힘
                 return selectedData;
             }
@@ -157,7 +167,7 @@
             let xhr = new XMLHttpRequest(); /*  XMLHttpRequest는 HTTP를 통해서 쉽게 데이터를 받을 수 있게 해주는 오브젝트를 제공한다
                                                     Ajax로 실행되는 HTTP 통신도 XMLHttpRequest규격을 이용함  */
             // XHR을 사용하면 페이지의 새로고침 없이도 URL에서 데이터를 가져올 수 있습니다
-            xhr.open('POST', "${pageContext.request.contextPath}/compinfo/customer/registerAccount?toList=" // 위의 값들을 addNewEstimate.do를 호출시켜서 던질거임
+            xhr.open('POST', "/compinfo/customer/registerAccount?toList=" // 위의 값들을 addNewEstimate.do를 호출시켜서 던질거임
               + encodeURI(JSON.stringify(data)),
                 true);
             xhr.setRequestHeader('Accept', 'application/json');// (헤더이름,헤더값) HTTP요청 헤더에 포함하고자 하는 헤더 이름과 그 값인데 전에 무조건 open()뒤에는 send()메소드를 써주어야 한다.

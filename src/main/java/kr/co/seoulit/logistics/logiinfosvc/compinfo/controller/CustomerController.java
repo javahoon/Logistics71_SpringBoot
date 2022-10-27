@@ -79,7 +79,7 @@ public class CustomerController {
         map = new ModelMap();
         ArrayList<CustomerTO> list = compInfoService.findCustomerList();
         map.put("customer", list);
-        System.out.println(list);
+        //System.out.println(list);
         return map;
     }
 
@@ -89,7 +89,7 @@ public class CustomerController {
         String toList = request.getParameter("toList");
         ArrayList<CustomerTO> cto_list = gson.fromJson(toList,new TypeToken<ArrayList<CustomerTO>>() {}.getType());
         // gson을 쓰는 이유는 넘어오는 값들을 하나하나 담아주기 위함이라고함 분석필요 ㅠ
-
+        // TypeToken 원하는 자료형으로 바꿔줌
        // System.out.println("test : "+cto_list.get(0).getCustomerName());
         compInfoService.registerCustomer(cto_list);
         return map;

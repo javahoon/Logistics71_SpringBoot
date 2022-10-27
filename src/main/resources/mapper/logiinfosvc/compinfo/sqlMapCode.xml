@@ -14,7 +14,7 @@
   	<select id="selectCodeList" resultMap="codeResult">
   		SELECT * FROM CODE ORDER BY DIVISION_CODE_NO
   	</select>
-
+	<!--resultType = 쿼리문 수행후 메서드 반환타입이 String이나 객체를 반환할수 있도록 지정하는 속성-->
   	<select id="selectCustomerList" resultType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
 		select * from customer
 	</select>
