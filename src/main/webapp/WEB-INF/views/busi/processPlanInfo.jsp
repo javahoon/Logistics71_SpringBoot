@@ -545,17 +545,17 @@
             return;
         }
 
-        let contractDetailNo=[]; // 수주상세 일련번호
-        let contractType=[]; //수주유형
-        let stockAmountUse=[]; // 재고사용량
+        let contractDetailNo; // 수주상세 일련번호
+        let contractType; //수주유형
+        let stockAmountUse; // 재고사용량
 
         let now = new Date();
         let today = now.getFullYear() + "-" + (now.getMonth() +1 ) + "-" +  now.getDate();
 
         selectedNodes.map(selectedData => {//[1,2,3]
-            contractDetailNo.push(selectedData.data.contractDetailNo);
-            contractType.push(selectedData.data.contractType);
-            stockAmountUse.push(selectedData.data.stockAmountUse);
+            contractDetailNo=selectedData.data.contractDetailNo;
+            contractType=selectedData.data.contractType;
+            stockAmountUse=selectedData.data.stockAmountUse;
 
             console.log(selectedData.data.contractDetailNo);
             console.log(selectedData.data.stockAmountUse);
@@ -583,11 +583,10 @@
 
                 //let today = now.getFullYear() + "-" + (now.getMonth() +1 ) + "-" +  now.getDate();
                 xhr.open('POST', "${pageContext.request.contextPath}/logisales/processplan/new?"
-                    + "method=processPlan"
-                    + "&batchList=" + encodeURI(resultArray),
+                    + "method=processPlan",
                     true);
-                xhr.setRequestHeader('Accept', 'application/json');
-                xhr.send();
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                xhr.send(resultArray);
                 xhr.onreadystatechange = () => {
                     if (xhr.readyState == 4 && xhr.status == 200) {
 

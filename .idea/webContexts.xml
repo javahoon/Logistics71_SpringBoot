@@ -7,6 +7,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi/contractInfo.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi/contractRegister.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi/estimateRegister.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/busi" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/logiinfo/loginForm.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/logiinfo" />
       </map>
     </option>
   </component>

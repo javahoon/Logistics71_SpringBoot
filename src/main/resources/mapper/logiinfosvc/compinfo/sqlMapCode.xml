@@ -18,6 +18,10 @@
   	<select id="selectCustomerList" resultType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
 		select * from customer
 	</select>
+	<!--statementType="CALLABLE"  로 지정하면
+	프로시저에서 out로 지정한 값들이 insertBoard를 요청할때 사용한 파라미터 map에 담긴다.
+	out이 없으면 안적어도댐
+	-->
 	<parameterMap type="map" id="customerCode">
 		<parameter property="customerCode" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
 		<parameter property="workplaceCode" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
@@ -41,6 +45,14 @@
 		{call P_CUSTOMER_CODE(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)}
 		]]>
 	</insert>
+	<parameterMap type="map" id="removeCode" >
+		<parameter property="customerName" javaType="java.lang.String" jdbcType="VARCHAR" mode="IN" />
+	</parameterMap>
+	<delete id="deleteCustomer" parameterMap="removeCode">
+		<![CDATA[
+		{call P_REMOVE_CUSTOMER(?)}
+		]]>
+	</delete>
 <!--	<insert id="customerCode" parameterType="kr.co.seoulit.logistics.logiinfosvc.compinfo.to.CustomerTO">
 	insert into customer values(
 		 #{customerCode}

@@ -168,7 +168,7 @@
    
   // O customerList Grid
   let contractColumn = [
-    {headerName: ' ', checkboxSelection: true,  width: 50, cellStyle: {'textAlign': 'center'}, headerCheckboxSelection: true },
+    {headerName: ' ', checkboxSelection: true,  width: 50, cellStyle: {'textAlign': 'center'}},
     {headerName: "견적일련번호", field: "estimateNo"},
     {headerName: "수주유형분류", field: "contractTypeName", editable: true},
     {headerName: "수주유형분류", field: "contractType", editable: true, hide:true},
@@ -182,18 +182,18 @@
     {headerName: "유효일자", field: "effectiveDate",  cellRenderer: function (params) {
         if (params.value == "") { params.value = "YYYY-MM-DD";}
         return '📅 ' + params.value;
-      }}, 
+      }},
     {headerName: "견적담당자명", field: "estimateRequester"},
     {headerName: "견적담당자코드", field: "personCodeInCharge",hide :true},
     {headerName: "비고", field: "description", editable: true}
-    
+
   ];
   // event.colDef.field
   let rowData = [];
   let contractRowNode;
   let contractGridOptions = {
     columnDefs: contractColumn,
-    rowSelection: 'multiple',//'single'
+    rowSelection: 'single',//'single'
     rowData: rowData,
     getRowNodeId: function (data) {
       return data.estimateNo;
@@ -480,6 +480,7 @@
     let resultArray={"estimateNo":estimateNo ,"contractType":contractType,"contractRequester":contractRequester,"personCodeInCharge":personCodeInCharge,"discription":discription,"contractDate":contractDate,"customerCode":customerCode};
 
     resultArray=JSON.stringify(resultArray);
+    console.log(contractGridOptions.getSelectedRowData()+"tqtqtqrotlqkf");
     // 수주 유형입력 안했을 때
     if (selectedNodes[0].data.contractType == undefined) {
       Swal.fire({
@@ -490,6 +491,17 @@
       })
       return;
     }
+
+    if(contractGridOptions.getSelectedRowData()>=contractGridOptions.getSelectedRowData()[1]){
+        Swal.fire({
+            position: "top",
+            icon: 'error',
+            title: '체크 항목',
+            text: '한개 이상의 수주등록은 불가능합니다.',
+        })
+        return;
+    }
+
      Swal.fire({
       title: '수주 등록',
       text:  noti[0] + "를 등록하시겠습니까?",
@@ -560,4 +572,4 @@
   })
 </script>
 </body>
-</html>
+</html>`

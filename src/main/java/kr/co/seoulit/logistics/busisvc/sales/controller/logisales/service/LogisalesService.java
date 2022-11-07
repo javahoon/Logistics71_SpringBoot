@@ -38,5 +38,5 @@ public interface LogisalesService {
 	
 	public void changeContractStatusInEstimate(String estimateNo , String contractStatus);
 
-	public void processPlan(HashMap<String,String[]> processMap);
+	public void processPlan(HashMap<String,String> processMap);
 }

@@ -1052,7 +1052,7 @@ img.editable-click:hover {
         margin: 0;
         border-width: 0 0 1px 0; background-color: #093845   !important;
     color: white;
-    font-size: 12px; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif
+    font-size: 12px; font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     text-transform: uppercase;
     }
 
@@ -1788,7 +1788,7 @@ th[aria-selected=true] {
     background-repeat: repeat-x;
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffeeeeee', GradientType=0);
     border-image: none;
-    border-bottom: 1px solid solid;
+    border-bottom: 1px solid;
     color: #669FC7;
     min-height: 38px;
     position: relative;

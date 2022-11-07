@@ -204,3 +204,6 @@
 .datepicker-hide {
   display: none;
 }
+#deleteCustomer{
+  background-color: red;
+}

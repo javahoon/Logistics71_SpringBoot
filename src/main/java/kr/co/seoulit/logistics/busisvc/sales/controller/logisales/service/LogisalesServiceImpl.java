@@ -382,8 +382,7 @@ public class LogisalesServiceImpl implements LogisalesService {
 
 	}
 
-	public void processPlan(HashMap<String,String[]> processMap) {
-		ModelMap resultMap = new ModelMap();
+	public void processPlan(HashMap<String,String> processMap) {
 		HashMap<String, String> map = new HashMap<>();
 
 
@@ -391,9 +390,7 @@ public class LogisalesServiceImpl implements LogisalesService {
 		Set<String> keys = processMap.keySet();
 		keys.forEach((key)->{
 			System.out.println(processMap.get(key));
-			for(String val:processMap.get(key)) {
-				map.put(key,val);
-			}
+			map.put(key,processMap.get(key));
 		});
 		System.out.println("프로시저 변수값 map : "+map);
 		contractMapper.processPlan(map);

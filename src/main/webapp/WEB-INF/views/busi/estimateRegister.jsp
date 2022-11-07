@@ -104,6 +104,11 @@
                          <button class="search" id="customerList" data-toggle="modal"
                                     data-target="#listModal">거래처코드
                          </button>
+                         <%--
+                             // data-toggle
+                             // data-dismiss 선언해놓은 버튼 클릭시 꺼짐
+                             // data-target 모달창의 css
+                             // 값은 id로 js에서 가져옴--%>
                      </div>
                  </div>
     </div>
@@ -455,13 +460,16 @@
       return;
     }
     if (event.id == "estimateDeleteButton") {  // 버튼 id 일치하면 실행
-      estGridOptions.rowData.splice(selected.rowIndex, 1);
+
+        estGridOptions.rowData.splice(selected.rowIndex, 1);
+      //console.log(estGridOptions.rowData.splice(selected.rowIndex, 1)+"tlqkf");
       estGridOptions.api.setRowData(estGridOptions.rowData);
     } else if (event.id == "estimateDetailDeleteButton"){
       console.log("견적상세삭제");
       let selectedRows = estDetailGridOptions.api.getSelectedRows();
       console.log("선택된 행" + selectedRows );
       selectedRows.forEach( function(selectedRow, index) {
+          console.log("선택된 행" + selectedRows );
         console.log(selectedRow);
    //     detailItemCode.splice(detailItemCode.indexOf(selectedRow.itemCode), 1); // 배열요소 제거
         estDetailGridOptions.api.updateRowData({remove: [selectedRow]});

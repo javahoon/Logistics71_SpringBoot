@@ -59,9 +59,9 @@ public class ApiExplorer {
 
 			URL url = new URL(urlstr);
 
-			HttpURLConnection urlconnection = (HttpURLConnection) url.openConnection();
-			urlconnection.setRequestMethod("GET");
-			br = new BufferedReader(new InputStreamReader(urlconnection.getInputStream(), "UTF-8"));
+			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+			urlConnection.setRequestMethod("GET");
+			br = new BufferedReader(new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
 			result = "";
 			String line;
 			while ((line = br.readLine()) != null) {

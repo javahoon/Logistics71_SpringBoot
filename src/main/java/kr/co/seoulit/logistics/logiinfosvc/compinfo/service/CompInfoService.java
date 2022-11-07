@@ -88,5 +88,5 @@ public interface CompInfoService {
 	public void removeBoard(int board_seq);
 	public ArrayList<CustomerTO> findCustomerList();
 	public void registerCustomer(ArrayList<CustomerTO> cto_list);
-
+	public void removeCustomer(String removeCustomer);
 }

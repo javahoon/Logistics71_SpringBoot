@@ -36,6 +36,23 @@ public class CompInfoServiceImpl implements CompInfoService {
 	private CompInfoMapper compInfoMapper;
 
 	@Override
+	public ArrayList<CustomerTO> findCustomerList(){
+		ArrayList<CustomerTO> customer=codeMapper.selectCustomerList();
+		return customer;
+	}
+	@Override
+	public void registerCustomer(ArrayList<CustomerTO> cto_list) {
+		for(CustomerTO to : cto_list)
+			codeMapper.insertCustomer(to);
+	}
+
+	@Override
+	public void removeCustomer(String removeCustomer){
+		//System.out.println(removeCustomer+"서비스삭제");
+			codeMapper.deleteCustomer(removeCustomer);
+	}
+
+	@Override
 	public ArrayList<CodeDetailTO> getDetailCodeList(String divisionCode) {
 
 		ArrayList<CodeDetailTO> codeDetailList = null;
@@ -74,17 +91,6 @@ public class CompInfoServiceImpl implements CompInfoService {
 		
 		return flag;
 	}
-	@Override
-	public ArrayList<CustomerTO> findCustomerList(){
-		ArrayList<CustomerTO> customer=codeMapper.selectCustomerList();
-		return customer;
-	}
-	@Override
-	public void registerCustomer(ArrayList<CustomerTO> cto_list) {
-		for(CustomerTO to : cto_list)
-			codeMapper.insertCustomer(to);
-	}
-
 	@Override
 	public HashMap<String, Object> batchCodeListProcess(ArrayList<CodeTO> codeList) {
 

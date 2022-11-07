@@ -21,11 +21,14 @@
 </head>
 <body>
 <div>
-    <h1>거래처 목록</h1>
+    <h1>거래처 목록🏬</h1>
     <article class="estimateGrid">
         <div align="center">
             <div id="accountData" class="ag-theme-balham" style="height:450px; width:auto; text-align: center;"></div>
         </div>
+        <button onclick="deleteCustomer()" id="deleteCustomer">삭제</button>
+        <div><h1>거래처 등록🌎</h1></div>
+
     </article>
 
 
@@ -45,6 +48,7 @@
         const accoutGrid = document.querySelector("#accountData"); // grid의 이름 그리고 값을 넣을 div의 id
 
         let estColumn = [
+            {checkboxSelection: true,headerCheckboxSelectionFilteredOnly: true, width: 30},
             {headerName: "고객 코드", field: "customerCode"}, // editable: 편집가능한 문자열로 EditText 의 기본 Type , field는 변수명
             {headerName: "직장코드", field: "workplaceCode"},
             {headerName: "고객 이름", field: "customerName"},
@@ -70,13 +74,52 @@
             columnDefs: estColumn,  // 열을 정의하는거 columnDefs
             rowSelection: 'single', //row data를 선택하는 경우의 옵션으로 하나만 선택
             rowData: estRowData,  // 그리드에 표시할 데이터를 설정
+            localeText:{noRowsToShow: '새로고침하면 보입니다.'}, // "key": "value"
             onGridReady: function (event) { // 그리드가 시작하자마자 실행되는거
                 event.api.sizeColumnsToFit(); //자동으로 글자나 이것저것 크기조정
+            },
+            getSelectedRowData() {                          // 특정 필드의 값을 가지고오기 위해서 필요함 estGridOptions.getSelectedRowData()[0].customerName
+                let selectedNodes = this.api.getSelectedNodes();     // Object 찍힘  (선택한 열?)
+                let selectedData = selectedNodes.map(node => node.data); // Object 찍힘
+                return selectedData;
             }
+        }
+        function deleteCustomer(){
+            let PTN=estGridOptions.getSelectedRowData()[0].customerCode;
+            let customerName=estGridOptions.getSelectedRowData()[0].customerName;
+            console.log(JSON.stringify(customerName))
+            if(PTN>="PTN-01"&&PTN<="PTN-14"){
+                Swal.fire({
+                    text: "삭제할 수 없는 거래처입니다.",
+                    icon: "error",
+                });
+                return;
+            }
+            let xhr = new XMLHttpRequest();  /*XMLHttpRequest는 HTTP를 통해서 쉽게 데이터를 받을 수 있게 해주는 오브젝트를 제공한다
+                                                    Ajax로 실행되는 HTTP 통신도 XMLHttpRequest규격을 이용함 */
+            // XHR을 사용하면 페이지의 새로고침 없이도 URL에서 데이터를 가져올 수 있습니다
+            xhr.open('POST', "/compinfo/customer/removeCustomer?deleteCustomer="
+                + customerName,
+                true);              // Accept Param 값 전달할 때 사용
+                                    // Content-Type RequestBody 사용할 때 사용
+            xhr.setRequestHeader('Accept', 'application/json');// (헤더이름,헤더값) HTTP요청 헤더에 포함하고자 하는 헤더 이름과 그 값인데 전에 무조건 open()뒤에는 send()메소드를 써주어야 한다.
+            xhr.send(); // 요청을 전송합니다. 비동기 요청(기본 동작)인 경우, send()는 요청을 전송하는 즉시 반환
+            xhr.onreadystatechange = () => {                    // readyState 속성이 바뀔 때마다 발생합니다. onreadystatechange 속성으로도 수신할 수 있음
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    let txt = xhr.responseText;
+                    txt = JSON.parse(txt);
+                    if (txt.errorCode < 0) {
+                        swal.fire("오류", txt.errorMsg, "error");
+                        return;
+                    }
+                }
+            }
+            //location.reload();
         }
         document.addEventListener('DOMContentLoaded', () => {  // DOMContentLoaded : 스크립트가 시작할 준비가 됐으면 function 함수실행
             new agGrid.Grid(accoutGrid, estGridOptions);        // accoutGrid는 div태그의 변수이름이고 , estGridOptions는 안에 들어갈 값들이다
         })
+
     </script>
 
 
@@ -86,7 +129,7 @@
                  style="height:100px; width:auto; text-align: center;"></div>
         </div>
     </article>
-    <button onclick="ff()">등록</button>
+    <button onclick="insertCustomer()">등록</button>
     <script>
         const registerAccount = document.querySelector("#registerAccount");
         let registerEstColumn = [
@@ -136,20 +179,15 @@
                         })
                     }
                     else {*/
-        function f() {
-            //console.log(row.customerCode.data);
-                registerOptions.api.updateRowData({add: [row]}); // 버튼 클릭시 option에 row의 값을 업데이트한다
-
-        }
-
 
         let registerOptions = {
             columnDefs: registerEstColumn,  // 열을 정의하는거 columnDefs
             autoSizeColumn: estColumn,      // 자동으로 칼럼들을 사이즈조정해줌
             rowData: estRowData,            // 그리드에 표시할 데이터를 설정
             onGridReady: function (event) { // 그리드가 시작하자마자 실행되는거
-                event.api.sizeColumnsToFit();//자동으로 글자나 이것저것 크기조정
+                event.api.sizeColumnsToFit();//자동으로 가로크기 조정
                 registerOptions.api.updateRowData({add: [row]});
+
             },
             onGridSizeChanged: function (event) { // 창크기가 변경되면 실행되는 이벤트
                 event.api.sizeColumnsToFit();
@@ -158,11 +196,13 @@
                 let selectedNodes = this.api.getSelectedNodes();     // Object 찍힘  (선택한 열?)
                 let selectedData = selectedNodes.map(node => node.data); // Object 찍힘
                 return selectedData;
-            }
+            },
+
         }
 
 
-        function ff() {
+        function insertCustomer() {
+
             let data = registerOptions.getSelectedRowData();
             let xhr = new XMLHttpRequest(); /*  XMLHttpRequest는 HTTP를 통해서 쉽게 데이터를 받을 수 있게 해주는 오브젝트를 제공한다
                                                     Ajax로 실행되는 HTTP 통신도 XMLHttpRequest규격을 이용함  */
@@ -186,7 +226,7 @@
             }
             // console.log(registerOptions.getSelectedRowData()[0]+"@@@@@@@@@@@");
 
-           location.reload();   // 클릭하면 다시 로드
+          location.reload();   // 클릭하면 다시 로드
         }
 
 
