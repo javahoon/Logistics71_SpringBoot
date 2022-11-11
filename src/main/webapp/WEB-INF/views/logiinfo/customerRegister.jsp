@@ -114,7 +114,7 @@
                     }
                 }
             }
-            //location.reload();
+            location.reload();
         }
         document.addEventListener('DOMContentLoaded', () => {  // DOMContentLoaded : 스크립트가 시작할 준비가 됐으면 function 함수실행
             new agGrid.Grid(accoutGrid, estGridOptions);        // accoutGrid는 div태그의 변수이름이고 , estGridOptions는 안에 들어갈 값들이다
@@ -153,7 +153,7 @@
         ];
 
         let row = {
-            customerCode: null,
+            customerCode: "",
             workplaceCode: "",
             customerName: "",
             customerType: "",
@@ -204,12 +204,13 @@
         function insertCustomer() {
 
             let data = registerOptions.getSelectedRowData();
+            console.log(JSON.stringify(data)+" 확인");
             let xhr = new XMLHttpRequest(); /*  XMLHttpRequest는 HTTP를 통해서 쉽게 데이터를 받을 수 있게 해주는 오브젝트를 제공한다
                                                     Ajax로 실행되는 HTTP 통신도 XMLHttpRequest규격을 이용함  */
             // XHR을 사용하면 페이지의 새로고침 없이도 URL에서 데이터를 가져올 수 있습니다
-            xhr.open('POST', "/compinfo/customer/registerAccount?toList=" // 위의 값들을 addNewEstimate.do를 호출시켜서 던질거임
-              + encodeURI(JSON.stringify(data)),
-                true);
+            xhr.open('POST', "/compinfo/customer/registerCustomer?toList=" // 위의 값들을 addNewEstimate.do를 호출시켜서 던질거임
+              +encodeURI(JSON.stringify(data))
+                ,true);
             xhr.setRequestHeader('Accept', 'application/json');// (헤더이름,헤더값) HTTP요청 헤더에 포함하고자 하는 헤더 이름과 그 값인데 전에 무조건 open()뒤에는 send()메소드를 써주어야 한다.
             xhr.send(); // 요청을 전송합니다. 비동기 요청(기본 동작)인 경우, send()는 요청을 전송하는 즉시 반환
             xhr.onreadystatechange = () => {                    // readyState 속성이 바뀔 때마다 발생합니다. onreadystatechange 속성으로도 수신할 수 있음

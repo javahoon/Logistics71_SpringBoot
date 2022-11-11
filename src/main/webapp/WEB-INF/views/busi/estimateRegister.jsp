@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8"%>
 <% request.setCharacterEncoding("UTF-8"); %>
-<%@ taglib prefix="J2H" tagdir="/WEB-INF/tags" %>   
+<%@ taglib prefix="J2H" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +21,7 @@
 
         let end = new Date();
         let year = end.getFullYear();              //yyyy
-        let month = (1 + end.getMonth());          //M
+        let month = (1 + end.getMonth());          //Mㄹ
         month = month >= 10 ? month : '0' + month;  //month 두자리로 저장
         let day = end.getDate();                   //d
         day = day >= 10 ? day : '0' + day;          //day 두자리로 저장 day가 10보다 크거나 같으면 day를 반환 작으면 0을 넣어주고 day를 반환
@@ -91,6 +91,7 @@
 </head>
   <!--   =============================================================================================================    -->  
 <body>
+<%--section 태그는 주제별 영역들을 그룹화 하기위해 사용한다. 주로 자식 요소로 hn태그 (h1~h6) 태그와 일반적인 컨텐츠가 포함--%>
 <article class="estimate">
     <div class="estimate_Title">
         <h5>📋 견적등록</h5>
@@ -99,13 +100,13 @@
                  <div class="menuButton">
                      <button id="estimateInsertButton" onclick="addRow(this)">견적추가</button>
                      <button id="estimateDeleteButton" onclick="deleteRow(this)">견적삭제</button>
-                     <button id="batchSaveButton" style=" float:right;  background-color:#F15F5F"  >일괄저장</button>
+                     <button id="batchSaveButton" style=" float:right;  background-color:rgba(238,39,39,0.99)"  >일괄저장</button>
                      <div class="menuButton__selectCode">
                          <button class="search" id="customerList" data-toggle="modal"
                                     data-target="#listModal">거래처코드
                          </button>
                          <%--
-                             // data-toggle
+                             // data-toggle 종류는 modal,dropdown 등등 있다
                              // data-dismiss 선언해놓은 버튼 클릭시 꺼짐
                              // data-target 모달창의 css
                              // 값은 id로 js에서 가져옴--%>
@@ -143,7 +144,8 @@
         <div id="myGrid2" class="ag-theme-balham" style="height:50vh;width:auto;"></div>
     </div>
 </article>
-
+<%-- JSTL 확장 태그    J2H=접두사 ,  listModal은 listModal.tag의 div id이다--%>
+<%--tags에 있는 리스트 모달이다 그쪽에 모달에 x버튼과 닫기가 있다--%>
 <J2H:listModal/>    <!-- 조회 모달 --> <!-- 견적상세등록 제목 바로 밑에 있는 버튼이 아니라 ag-Grid 큰 표에 있는 컬럼명? 이라고 볼 수 있다. -->
 
 <%--Amount Modal--%>
@@ -162,7 +164,7 @@
                        <label for='unitPriceOfEstimateBox' style='font-size: 20px; margin-right: 10px'>견적단가</label>
                        <input type='text' id='unitPriceOfEstimateBox' autocomplete="off"/><br>
                        <label for='sumPriceOfEstimateBox' style='font-size: 20px; margin-right: 30px'>합계액  </label>
-                       <input type="text" id='sumPriceOfEstimateBox' autocomplete="off"></input>
+                       <input type="text" id='sumPriceOfEstimateBox' autocomplete="off" />
                 </div>
             </div>
             <div class="modal-footer">
@@ -667,7 +669,7 @@
       xhr.send();
       xhr.onreadystatechange = () => {  //callback함수 사용
         if (xhr.readyState == 4 && xhr.status == 200) { // 숫자값에 따라 처리상태가 달라지는 것. xhr.readyState == 4 : 데이터를 전부 받은 상태,완료되었다.xhr.status == 200 : 서버로부터의 응답상태가 요청에 성공하였다는 의미.
-          // 초기화 
+          // 초기화 4(요청한 데이터의 처리가 완료되어 응답할 준비가 완료됨.),200 : 서버에 문서가 존재함.
           estGridOptions.api.setRowData([]);
           estDetailGridOptions.api.setRowData([]);
           let txt = xhr.responseText;

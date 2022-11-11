@@ -42,7 +42,7 @@ public class CompInfoServiceImpl implements CompInfoService {
 	}
 	@Override
 	public void registerCustomer(ArrayList<CustomerTO> cto_list) {
-		for(CustomerTO to : cto_list)
+			for(CustomerTO to:cto_list)
 			codeMapper.insertCustomer(to);
 	}
 
@@ -535,7 +535,7 @@ public class CompInfoServiceImpl implements CompInfoService {
 			ArrayList<WorkplaceTO> workplaceList = null;
 			
 			workplaceList = compInfoMapper.selectWorkplaceList(companyCode);
-
+//			workplaceList = compInfoService.getWorkplaceList(companyCode);// COM-01
 			return workplaceList;
 		}
 

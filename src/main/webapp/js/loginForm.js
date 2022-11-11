@@ -74,20 +74,21 @@ const workplaceList = document.querySelector('#workplaceList');
 
 let gridOptions = {
   defaultColDef: {editable: false}, // 정의하지 않은 컬럼은 자동으로 설정
-  onGridReady: function(event) {// onload 이벤트와 유사 ready 이후 필요한 이벤트 삽입한다.
-    event.api.sizeColumnsToFit();
+  onGridReady: function(event) {// onload 이벤트와 유사 ready 이후 필요한 이벤트 삽입한다. 그리드가 시작되자마자 실행되게하라는 함수
+    event.api.sizeColumnsToFit();   // 사이즈 자동조정
   },
   onGridSizeChanged: function(event) { // 그리드의 사이즈가 변하면 자동으로 컬럼의 사이즈 정리
     event.api.sizeColumnsToFit();
   },
   rowSelection: 'single',
-  onRowDoubleClicked: function(event) {
-    console.log(event);
-    console.log(event.data.companyCode); // COM-O1
-    if (event.data.workplaceCode == null) {
+  onRowDoubleClicked: function(event) { // 더블클릭하면
+    console.log(event+"더블클릭 실행");  // Object
+    console.log(event.data.companyCode); // COM-O1 선택한 회사코드
+    console.log(companyCode+"뭐지");
+    if (event.data.workplaceCode == null) { //BRC-01
       companyCode.parentNode.parentNode.classList.add('focus');
-      companyCode.value = event.data.companyCode;
-      workplaceCode.value = "";
+      companyCode.value = event.data.companyCode; //companyCode 의 value값은 COM-01과 같다.
+      workplaceCode.value = "";                   // BRC-01을 null값으로 선언
       workplaceCode.parentNode.parentNode.classList.remove('focus');
     } else {
       workplaceCode.parentNode.parentNode.classList.add('focus');
@@ -115,7 +116,7 @@ workplaceList.addEventListener('click', function (event) {
     workplaceCode.value = "Company Code를 입력해주세요!";
     workplaceCode.parentNode.parentNode.classList.add('focus');
     $('#myModal2').on('show.bs.modal', (event) => {
-      console.log('companyCode 입력 요망');
+      console.log(event.preventDefault()+"5151");
       event.preventDefault();
     });
     return;
@@ -140,6 +141,8 @@ const companyData = () => {
     dataType: 'json',
     cache: false,
     success: function(dataSet) {
+      console.log(companyCode.value = dataSet.gridRowJson[0].companyCode+"ajax")
+      // dataSet.gridRowJson[0] 하면 첫번째 열의 값들이 나옴
 	  companyCode.value = dataSet.gridRowJson[0].companyCode;
 	  console.log(companyCode.value);
       console.log(dataSet.gridRowJson[0].companyCode);
@@ -174,7 +177,7 @@ const workplaceData = () => {
     dataType: 'json',
     cache: false,
     success: function (dataSet) {
-      console.log(dataSet);
+      console.log(gridOptions.api.setRowData(dataSet.gridRowJson)+"work");
       gridOptions.api.setRowData(dataSet.gridRowJson);
     },
   });

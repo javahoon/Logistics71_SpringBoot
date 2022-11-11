@@ -82,14 +82,14 @@
 			</c:forEach>   
 			
 	 		$(".m").on('click', function (event) {
-				
+				console.log(menuList.includes(this.id)+" id 로그인");
 				if(!menuList.includes(this.id)){
 			        swal.fire({
 			            text: "접근권한이 없습니다.",
 			            icon: "error",
 			          });
 					return false;
-				}    
+				}
 			});
 	 	});
 	</script>

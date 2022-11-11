@@ -52,43 +52,53 @@ public class LogisalesServiceImpl implements LogisalesService {
 
 	@Override
 	public ModelMap addNewEstimate(String estimateDate, EstimateTO newEstimateTO) {
-
 		ModelMap resultMap = null;
-
 		String newEstimateNo = getNewEstimateNo(estimateDate);
-
+		// 밑에있는 메서드(getNewEstimateNo)를 불러옴 estimateNo값을 들고옴
 		newEstimateTO.setEstimateNo(newEstimateNo);
-
+		//EstimateTO(effectiveDate=2022-11-16, estimateNo=null, estimateRequester=강자훈, description=, contractStatus=null, customerCode=PTN-14, personCodeInCharge=EMP-00, personNameCharge=강자훈, estimateDate=2022-11-08, customerName=gege, estimateDetailTOList=[EstimateDetailTO(unitOfEstimate=EA, estimateNo=null, unitPriceOfEstimate=75000, estimateDetailNo=null, sumPriceOfEstimate=525000, description=, itemCode=DK-AP01, estimateAmount=7, dueDateOfEstimate=2022-11-18, itemName=카메라 본체 NO.1)])위에거
+		// newEstimateTO.setEstimateNo(newEstimateNo) 하면 ES2022110858 이 들어감
+		System.out.println(newEstimateTO+"밑에");
 		estimateMapper.insertEstimate(newEstimateTO);
-			
 		ArrayList<EstimateDetailTO> estimateDetailTOList = newEstimateTO.getEstimateDetailTOList(); //bean객체
-			
+		System.out.println(estimateDetailTOList+"array!#!#");
+		//[EstimateDetailTO(unitOfEstimate=EA, estimateNo=null, unitPriceOfEstimate=71000, estimateDetailNo=null, sumPriceOfEstimate=497000, description=, itemCode=DK-AP02, estimateAmount=7, dueDateOfEstimate=2022-11-18, itemName=카메라 본체 NO.2)]
 		for (EstimateDetailTO bean : estimateDetailTOList) {
+				// bean은 위와 같지만 배열[]을 제외하고 for문 돌림
 			String newEstimateDetailNo = getNewEstimateDetailNo(newEstimateNo);
-				
+			//System.out.println(newEstimateDetailNo+"포문안에 넘버"); //ESES2022110864-01
 			bean.setEstimateNo(newEstimateNo);
-				
+			//System.out.println(bean+"1번째 빈");
+			//EstimateDetailTO(unitOfEstimate=EA, estimateNo=ES2022110864, unitPriceOfEstimate=75000, estimateDetailNo=null, sumPriceOfEstimate=33375000, description=, itemCode=DK-AP01, estimateAmount=445, dueDateOfEstimate=2022-11-17, itemName=카메라 본체 NO.1)
 			bean.setEstimateDetailNo(newEstimateDetailNo);
+			//System.out.println(bean+"2번째 빈"); // 위와 똑같지만 estimateDetailNo=ESES2022110864-01만 추가
 		}
-
 		resultMap = batchEstimateDetailListProcess(estimateDetailTOList,newEstimateNo);
-
+	  	//ES2022110857,{INSERT=[ESES2022110857-01], UPDATE=[], DELETE=[], newEstimateNo=ES2022110857}
 		resultMap.put("newEstimateNo", newEstimateNo);
-
+		//System.out.println(newEstimateNo+"lllll"+resultMap);
 		return resultMap;
 	}
 
 	public String getNewEstimateNo(String estimateDate) {
 
 		StringBuffer newEstimateNo = null;
-
+		System.out.println(newEstimateNo+"");
 		int i = estimateMapper.selectEstimateCount(estimateDate);
+		//System.out.println(i+"ii"); //65
 
 		newEstimateNo = new StringBuffer();
+		//System.out.println(newEstimateNo+"11");  // 아무것도 안나옴
+
 		newEstimateNo.append("ES");
+		//System.out.println(newEstimateNo+"22");  //ES
+
 		newEstimateNo.append(estimateDate.replace("-", ""));
-		newEstimateNo.append(String.format("%02d", i)); 
-			
+		//System.out.println(newEstimateNo+"33"); //ES20221108
+
+		newEstimateNo.append(String.format("%02d", i));
+		//System.out.println(newEstimateNo+"44"); //ES2022110865
+
 		return newEstimateNo.toString();
 	}
 	

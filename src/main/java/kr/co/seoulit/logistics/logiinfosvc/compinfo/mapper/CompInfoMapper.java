@@ -79,7 +79,7 @@ public interface CompInfoMapper {
 	//Workplace
 	
 	public ArrayList<WorkplaceTO> selectWorkplaceList(String companyCode);
-
+//		   ArrayList<WorkplaceTO> getWorkplaceList(String companyCode);
 	public void insertWorkplace(WorkplaceTO TO);
 	
 	public void updateWorkplace(WorkplaceTO TO);

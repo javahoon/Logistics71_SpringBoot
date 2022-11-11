@@ -54,7 +54,7 @@
                 </div>
                 <div class="div">
                     <h5>Workplace Code</h5>
-                    <input type="text" class="input" name="workplaceCode" id="workplaceCode" autocomplete="off" value="tlqkf">
+                    <input type="text" class="input" name="workplaceCode" id="workplaceCode" autocomplete="off" value="BRC-01">
                     <button type="button" class="search" id="workplaceList" data-toggle="modal" data-target="#myModal2">
                         <i class="fas fa-search"></i>
                     </button>

@@ -33,11 +33,12 @@ public class WorkplaceController {
 	@RequestMapping(value = "/workplace/list", method = RequestMethod.GET)
 	public ModelMap searchWorkplaceList(HttpServletRequest request, HttpServletResponse response) {
 		String companyCode = request.getParameter("companyCode");
+		System.out.println(companyCode+"컨트롤러 파람값"); // COM-01
 		map = new ModelMap();
 		ArrayList<WorkplaceTO> workplaceList = null;
 		try {
-			workplaceList = compInfoService.getWorkplaceList(companyCode);
-	
+			workplaceList = compInfoService.getWorkplaceList(companyCode);// COM-01
+	//		ArrayList<WorkplaceTO> getWorkplaceList(COM-01)
 			map.put("gridRowJson", workplaceList);
 			map.put("errorCode", 1);
 			map.put("errorMsg", "성공");

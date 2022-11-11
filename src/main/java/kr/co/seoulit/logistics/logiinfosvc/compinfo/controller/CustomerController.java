@@ -88,15 +88,16 @@ public class CustomerController {
         return map;
     }
 
-    @RequestMapping(value = "/customer/registerAccount", method = RequestMethod.POST)
-    public ModelMap registerAccount(@RequestParam("toList") String toList) {
-        ModelMap map = new ModelMap();
-        try {    ArrayList<CustomerTO> cto_list = gson.fromJson(toList, new TypeToken<ArrayList<CustomerTO>>() {
+    @RequestMapping(value = "/customer/registerCustomer", method = RequestMethod.POST)
+    public ModelMap registerCustomer(@RequestParam("toList") String toList) {
+        System.out.println(toList+"찍히나?");
+        try {
+            ArrayList<CustomerTO> customerList = gson.fromJson(toList, new TypeToken<ArrayList<CustomerTO>>() {
             }.getType());
             // gson을 쓰는 이유는 넘어오는 값들을 하나하나 담아주기 위함이라고함 분석필요 ㅠ
             // TypeToken 원하는 자료형으로 바꿔줌
             // System.out.println("test : "+cto_list.get(0).getCustomerName());
-            compInfoService.registerCustomer(cto_list);
+            compInfoService.registerCustomer(customerList);
         } catch (Exception e) {
             map.put("errorCode", -1);
             map.put("errorMsg", e.getMessage());
