@@ -593,7 +593,7 @@
                         // 데이터 확인
                         let txt = xhr.responseText;
                         txt = JSON.parse(txt);
-
+                        console.log("dsffdjfjklsfjd"+JSON.stringify(txt));
                         if (txt.errorCode < 0) {
                             Swal.fire("오류", txt.errorMsg, "error");
                             return;

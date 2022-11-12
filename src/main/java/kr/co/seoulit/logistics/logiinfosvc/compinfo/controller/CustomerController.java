@@ -59,6 +59,9 @@ public class CustomerController {
         String batchList = request.getParameter("batchList");
         map = new ModelMap();
         try {
+            // gson을 쓰는 이유는 넘어오는 값들을 하나하나 담아주기 위함이라고함 분석필요 ㅠ
+            // TypeToken 원하는 자료형으로 바꿔줌
+            // System.out.println("test : "+cto_list.get(0).getCustomerName());
             ArrayList<CustomerTO> customerList = gson.fromJson(batchList, new TypeToken<ArrayList<CustomerTO>>() {
             }.getType());
             HashMap<String, Object> resultMap = compInfoService.batchCustomerListProcess(customerList);
@@ -89,14 +92,8 @@ public class CustomerController {
     }
 
     @RequestMapping(value = "/customer/registerCustomer", method = RequestMethod.POST)
-    public ModelMap registerCustomer(@RequestParam("toList") String toList) {
-        System.out.println(toList+"찍히나?");
+    public ModelMap registerCustomer(@RequestBody ArrayList<CustomerTO> customerList) {
         try {
-            ArrayList<CustomerTO> customerList = gson.fromJson(toList, new TypeToken<ArrayList<CustomerTO>>() {
-            }.getType());
-            // gson을 쓰는 이유는 넘어오는 값들을 하나하나 담아주기 위함이라고함 분석필요 ㅠ
-            // TypeToken 원하는 자료형으로 바꿔줌
-            // System.out.println("test : "+cto_list.get(0).getCustomerName());
             compInfoService.registerCustomer(customerList);
         } catch (Exception e) {
             map.put("errorCode", -1);
@@ -108,9 +105,6 @@ public class CustomerController {
     public ModelMap removeCustomer(@RequestParam String deleteCustomer){
         System.out.println(deleteCustomer+"삭제했다!#");
         try {
-            // gson을 쓰는 이유는 넘어오는 값들을 하나하나 담아주기 위함이라고함 분석필요 ㅠ
-            // TypeToken 원하는 자료형으로 바꿔줌
-            // System.out.println("test : "+cto_list.get(0).getCustomerName());
             compInfoService.removeCustomer(deleteCustomer);
         } catch (Exception e) {
             map.put("errorCode", -1);
