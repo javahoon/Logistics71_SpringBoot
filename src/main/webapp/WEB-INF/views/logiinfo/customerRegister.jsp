@@ -133,7 +133,7 @@
     <script>
         const registerAccount = document.querySelector("#registerAccount");
         let registerEstColumn = [
-            {checkboxSelection: true,headerCheckboxSelectionFilteredOnly: true,headerCheckboxSelection: true}, // 어떤 열을 보낼지 선택하도록 체크박스 추가
+            {checkboxSelection: true,headerCheckboxSelectionFilteredOnly: true,headerCheckboxSelection: true,width: 100}, // 어떤 열을 보낼지 선택하도록 체크박스 추가
             {headerName: "고객 코드", field: "customerCode", editable: true}, // editable: 편집가능한 문자열로 EditText 의 기본 Type , field는 변수명
             {headerName: "직장코드", field: "workplaceCode", editable: true},
             {headerName: "고객 이름", field: "customerName", editable: true},
